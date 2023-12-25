@@ -7,6 +7,7 @@ pipeline {
                 script {
                     nodejs('Node-18.14.1') {
                      sh 'node -v'
+                     sh 'yarn install'
                     }
                     // dir('../') {
                     //     // Run the 'make' command

@@ -5,8 +5,10 @@ pipeline {
         stage('Provisioning') {
             steps {
                 script {
-                    dir('../')
-                    sh 'make'
+                    dir('../') {
+                        // Run the 'make' command
+                        sh 'make'
+                    }
                 }
                 echo 'Provisioning Jenkinsfile - Provisioning job is working'
             }

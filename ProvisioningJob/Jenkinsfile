@@ -5,7 +5,7 @@ pipeline {
         stage('Provisioning') {
             steps {
                 script {
-                    nodejs("Node-18.14.1") {
+                    nodejs('Node-18.14.1') {
                      sh 'yarn install'
                     }
                     // dir('../') {

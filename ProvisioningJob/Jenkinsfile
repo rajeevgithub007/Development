@@ -1,0 +1,11 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Provisioning') {
+            steps {
+                echo 'Provisioning Jenkinsfile - Provisioning job is working'
+            }
+        }
+    }
+}

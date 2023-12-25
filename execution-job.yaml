@@ -1,0 +1,25 @@
+---
+# Descriptive top-level key for clarity
+jobs:
+  - name: ProvisioningJob
+    type: provision
+    # Additional properties for provisioning details (if applicable):
+    # resources:
+    #   vmType: t2.medium
+    #   region: us-east-1
+    # script: provision-script.sh
+
+  - name: BuildJob
+    type: build
+    # Additional properties for build steps and dependencies:
+    # commands:
+    #   - npm install
+    #   - npm run build
+    # dependencies:
+    #   - node:16
+
+  - name: DeployJob
+    type: deploy
+    # Additional properties for deployment targets and configuration:
+    # environment: production
+    # script: deploy-script.sh

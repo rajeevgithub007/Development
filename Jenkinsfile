@@ -30,11 +30,13 @@ pipeline {
                 }
             }
         }
-    stage('Install Make' ) {
+        stage('Install Make') {
+            steps {
                 script {
                     sh 'yum install -y make'
                 }
-    }
+            }
+        }
         // stage('Cache Data') {
         //    steps {
         //     script {

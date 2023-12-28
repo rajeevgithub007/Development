@@ -30,12 +30,27 @@ pipeline {
                 }
             }
         }
+        stage('Install Terraform') {
+            steps {
+                script {
+                    def terraformVersion = "1.4.5"
+                    def terraformDownloadUrl = "https://releases.hashicorp.com/terraform/${terraformVersion}/terraform_${terraformVersion}_linux_amd64.zip"
+
+                    // Download and extract Terraform
+                    sh "wget -q ${terraformDownloadUrl} -O terraform.zip"
+                    sh "unzip terraform.zip"
+                    sh "mv terraform /usr/local/bin/"
+
+                    // Verify installation
+                    sh "terraform --version"
+                }
+            }
         stage('Install Make') {
             steps {
                 script {
                     sh 'apt-get update'
                     sh 'apt-get install -y make'
-                    sh 'make'
+                    // sh 'make'
                 }
             }
         }

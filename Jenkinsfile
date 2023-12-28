@@ -35,13 +35,14 @@ pipeline {
                 script {
                     sh 'apt-get update'
                     sh 'apt-get install -y make'
+                    sh 'make'
                 }
             }
         }
         stage('Check Node') {
             steps {
                 script {
-                    nodejs('Node-18.14.1') {
+                    nodejs('nodejs-18.14.1') {
                         sh 'node -v'
                         sh 'yarn install'
                     }

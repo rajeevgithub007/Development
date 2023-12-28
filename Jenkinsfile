@@ -15,20 +15,26 @@ pipeline {
                         // Check if it's Ubuntu or Debian
                         if (sh(script: 'cat /etc/os-release | grep -qi "ubuntu"', returnStatus: true) == 0) {
                             echo 'Running on Ubuntu'
-                            // Add your Ubuntu-specific steps here
+                        // Add your Ubuntu-specific steps here
                         } else if (sh(script: 'cat /etc/os-release | grep -qi "debian"', returnStatus: true) == 0) {
                             echo 'Running on Debian'
-                            // Add your Debian-specific steps here
+                        // Add your Debian-specific steps here
                         } else {
                             echo 'Running on another Unix-like OS'
-                            // Add steps for other Unix-like OS
+                        // Add steps for other Unix-like OS
                         }
                     } else {
                         echo 'Running on Windows'
-                        // Add steps for Windows
+                    // Add steps for Windows
                     }
                 }
             }
+        }
+    stage('Install Make' ) {
+                script {
+                    sh 'yum install -y make'
+                }
+    }
         // stage('Cache Data') {
         //    steps {
         //     script {
@@ -36,7 +42,7 @@ pipeline {
         //         // Use cachedData in your build
         //         echo "Using cached data: ${cachedData}"
         //     }
-        //    } 
+        //    }
 
         // }
         stage('Build') {
@@ -64,4 +70,4 @@ pipeline {
 //     def file = new File(filename)
 //     return file.exists() ? file.text : null
 
-}
+// }

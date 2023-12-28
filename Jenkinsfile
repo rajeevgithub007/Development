@@ -2,58 +2,59 @@ pipeline {
     agent any
 
     stages {
-        stage('Check OS') {
-            steps {
-                script {
-                    def osType = script {
-                        return isUnix() ? 'unix' : 'windows'
-                    }
+        // stage('Check OS') {
+        //     steps {
+        //         script {
+        //             def osType = script {
+        //                 return isUnix() ? 'unix' : 'windows'
+        //             }
 
-                    if (osType == 'unix') {
-                        echo 'Running on Unix-like OS'
+        //             if (osType == 'unix') {
+        //                 echo 'Running on Unix-like OS'
 
-                        // Check if it's Ubuntu or Debian
-                        if (sh(script: 'cat /etc/os-release | grep -qi "ubuntu"', returnStatus: true) == 0) {
-                            echo 'Running on Ubuntu'
-                        // Add your Ubuntu-specific steps here
-                        } else if (sh(script: 'cat /etc/os-release | grep -qi "debian"', returnStatus: true) == 0) {
-                            echo 'Running on Debian'
-                        // Add your Debian-specific steps here
-                        } else {
-                            echo 'Running on another Unix-like OS'
-                        // Add steps for other Unix-like OS
-                        }
-                    } else {
-                        echo 'Running on Windows'
-                    // Add steps for Windows
-                    }
-                }
-            }
-        }
+        //                 // Check if it's Ubuntu or Debian
+        //                 if (sh(script: 'cat /etc/os-release | grep -qi "ubuntu"', returnStatus: true) == 0) {
+        //                     echo 'Running on Ubuntu'
+        //                 // Add your Ubuntu-specific steps here
+        //                 } else if (sh(script: 'cat /etc/os-release | grep -qi "debian"', returnStatus: true) == 0) {
+        //                     echo 'Running on Debian'
+        //                 // Add your Debian-specific steps here
+        //                 } else {
+        //                     echo 'Running on another Unix-like OS'
+        //                 // Add steps for other Unix-like OS
+        //                 }
+        //             } else {
+        //                 echo 'Running on Windows'
+        //             // Add steps for Windows
+        //             }
+        //         }
+        //     }
+        // }
         stage('Install Terraform') {
             steps {
                 script {
-                    def terraformVersion = "1.4.5"
+                    def terraformVersion = '1.4.5'
                     def terraformDownloadUrl = "https://releases.hashicorp.com/terraform/${terraformVersion}/terraform_${terraformVersion}_linux_amd64.zip"
 
                     // Download and extract Terraform
                     sh "wget -q ${terraformDownloadUrl} -O terraform.zip"
-                    sh "unzip terraform.zip"
-                    sh "mv terraform /usr/local/bin/"
+                    sh 'unzip terraform.zip'
+                    sh 'mv terraform /usr/local/bin/'
 
                     // Verify installation
-                    sh "terraform --version"
-                }
-            }
-        stage('Install Make') {
-            steps {
-                script {
-                    sh 'apt-get update'
-                    sh 'apt-get install -y make'
-                    // sh 'make'
+                    sh 'terraform --version'
                 }
             }
         }
+        // stage('Install Make') {
+        //     steps {
+        //         script {
+        //             sh 'apt-get update'
+        //             sh 'apt-get install -y make'
+        //             // sh 'make'
+        //         }
+        //     }
+        // }
         stage('Check Node') {
             steps {
                 script {

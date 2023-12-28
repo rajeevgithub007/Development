@@ -2,6 +2,33 @@ pipeline {
     agent any
 
     stages {
+        stage('Check OS') {
+            steps {
+                script {
+                    def osType = script {
+                        return isUnix() ? 'unix' : 'windows'
+                    }
+
+                    if (osType == 'unix') {
+                        echo 'Running on Unix-like OS'
+
+                        // Check if it's Ubuntu or Debian
+                        if (sh(script: 'cat /etc/os-release | grep -qi "ubuntu"', returnStatus: true) == 0) {
+                            echo 'Running on Ubuntu'
+                            // Add your Ubuntu-specific steps here
+                        } else if (sh(script: 'cat /etc/os-release | grep -qi "debian"', returnStatus: true) == 0) {
+                            echo 'Running on Debian'
+                            // Add your Debian-specific steps here
+                        } else {
+                            echo 'Running on another Unix-like OS'
+                            // Add steps for other Unix-like OS
+                        }
+                    } else {
+                        echo 'Running on Windows'
+                        // Add steps for Windows
+                    }
+                }
+            }
         // stage('Cache Data') {
         //    steps {
         //     script {

@@ -1,7 +1,7 @@
 pipeline {
     // agent any
     agent {
-        docker {
+        Docker_Agent {
             image 'rajeevh07/terraform:1.4.5'
             // label 'custom-agent'
         }

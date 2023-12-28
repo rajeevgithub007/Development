@@ -33,7 +33,8 @@ pipeline {
         stage('Install Make') {
             steps {
                 script {
-                    sh 'yum install -y make'
+                    sh 'apt-get update'
+                    sh 'apt-get install -y make'
                 }
             }
         }

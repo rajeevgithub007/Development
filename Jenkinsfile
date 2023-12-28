@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    // agent any
+    agent {
+        docker {
+            image 'rajeevh07/terraform:1.4.5'
+            // label 'custom-agent'
+        }
+    }
 
     stages {
         // stage('Check OS') {
@@ -31,11 +37,11 @@ pipeline {
         //     }
         // }
         stage('Install Terraform') {
-            agent {
-                docker {
-                    image 'rajeevh07/terraform:1.4.5'
-                }
-            }
+            // agent {
+            //     docker {
+            //         image 'rajeevh07/terraform:1.4.5'
+            //     }
+            // }
             steps {
                 script {
                     // def terraformVersion = '1.4.5'

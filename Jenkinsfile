@@ -14,7 +14,7 @@ pipeline {
         // }
         stage('Build') {
             steps {
-                echo 'Building jenkins job'
+                echo 'Building job'
             }
         }
         stage('Test') {

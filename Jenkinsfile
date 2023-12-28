@@ -35,7 +35,7 @@ pipeline {
                 script {
                     sh 'apt-get update'
                     sh 'apt-get install -y make'
-                    // sh 'make'
+                    sh 'make'
                 }
             }
         }

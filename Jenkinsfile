@@ -31,15 +31,20 @@ pipeline {
         //     }
         // }
         stage('Install Terraform') {
+            agent {
+                docker {
+                    image 'rajeevh07/terraform:1.4.5'
+                }
+            }
             steps {
                 script {
-                    def terraformVersion = '1.4.5'
-                    def terraformDownloadUrl = "https://releases.hashicorp.com/terraform/${terraformVersion}/terraform_${terraformVersion}_linux_amd64.zip"
+                    // def terraformVersion = '1.4.5'
+                    // def terraformDownloadUrl = "https://releases.hashicorp.com/terraform/${terraformVersion}/terraform_${terraformVersion}_linux_amd64.zip"
 
-                    // Download and extract Terraform
-                    sh "wget -q ${terraformDownloadUrl} -O terraform.zip"
-                    sh 'unzip terraform.zip'
-                    sh 'mv terraform /usr/local/bin/'
+                    // // Download and extract Terraform
+                    // sh "wget -q ${terraformDownloadUrl} -O terraform.zip"
+                    // sh 'unzip terraform.zip'
+                    // sh 'mv terraform /usr/local/bin/'
 
                     // Verify installation
                     sh 'terraform --version'

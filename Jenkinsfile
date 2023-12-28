@@ -38,6 +38,21 @@ pipeline {
                 }
             }
         }
+        stage('Check Node') {
+            steps {
+                script {
+                    nodejs('Node-18.14.1') {
+                        sh 'node -v'
+                        sh 'yarn install'
+                    }
+                // dir('../') {
+                //     // Run the 'make' command
+                //     sh 'make'
+                // }
+                }
+                echo 'NodeJs and Yarn are installed'
+            }
+        }
         // stage('Cache Data') {
         //    steps {
         //     script {

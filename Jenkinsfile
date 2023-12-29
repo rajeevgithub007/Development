@@ -1,9 +1,9 @@
 pipeline {
     // agent any
     agent {
-        Docker_Agent {
-            image 'rajeevh07/terraform:1.4.5'
-            // label 'custom-agent'
+        docker {
+            image 'myjenkins-slave'
+            label 'docker-slave'
         }
     }
 

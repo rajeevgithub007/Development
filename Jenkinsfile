@@ -39,7 +39,8 @@ pipeline {
                     def dockerImage = docker.image('customimage-jenkins:latest')
                     // def dockerImage = docker.image('myjenkins-slave:latest')
                     // Use GitHub credentials with the 'withCredentials' block
-                    withCredentials([usernamePassword(credentialsId: GITHUB_CREDENTIALS, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    // withCredentials([usernamePassword(credentialsId: GITHUB_CREDENTIALS, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    withCredentials([string(credentialsId: 'jenkins-github-pat', variable: 'GITHUB_TOKEN')]) {    
                         dockerImage.inside {
                             // sh 'make'
                             sh 'echo "Running commands inside the custom image"'

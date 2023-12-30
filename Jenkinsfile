@@ -1,119 +1,48 @@
 pipeline {
-    // agent any
-    agent {
-        docker {
-            image 'myjenkins-slave'
-            label 'docker-slave'
-        }
-    }
-
+    agent any
+    // agent {
+    //     label "jenkins-slave-node"
+    //     image "myjenkins-slave"
+    // }
+    // node("jenkins-slave-node") {
+    //     println "hello"
+    // // agent {
+    // //     // image "myjenkins-slave"
+    // //     // label "jenkins-slave-node"
+    // //     label "docker-slave"
+    // // }
+    // }
     stages {
-        // stage('Check OS') {
-        //     steps {
-        //         script {
-        //             def osType = script {
-        //                 return isUnix() ? 'unix' : 'windows'
-        //             }
-
-        //             if (osType == 'unix') {
-        //                 echo 'Running on Unix-like OS'
-
-        //                 // Check if it's Ubuntu or Debian
-        //                 if (sh(script: 'cat /etc/os-release | grep -qi "ubuntu"', returnStatus: true) == 0) {
-        //                     echo 'Running on Ubuntu'
-        //                 // Add your Ubuntu-specific steps here
-        //                 } else if (sh(script: 'cat /etc/os-release | grep -qi "debian"', returnStatus: true) == 0) {
-        //                     echo 'Running on Debian'
-        //                 // Add your Debian-specific steps here
-        //                 } else {
-        //                     echo 'Running on another Unix-like OS'
-        //                 // Add steps for other Unix-like OS
-        //                 }
-        //             } else {
-        //                 echo 'Running on Windows'
-        //             // Add steps for Windows
-        //             }
-        //         }
-        //     }
-        // }
-        stage('Install Terraform') {
-            // agent {
-            //     docker {
-            //         image 'rajeevh07/terraform:1.4.5'
-            //     }
-            // }
+        stage('Hello') {
+             agent {
+                // Specify the label of the Jenkins slave where the image is available
+                label  "jenkins-slave-node"
+            }
             steps {
-                script {
-                    // def terraformVersion = '1.4.5'
-                    // def terraformDownloadUrl = "https://releases.hashicorp.com/terraform/${terraformVersion}/terraform_${terraformVersion}_linux_amd64.zip"
-
-                    // // Download and extract Terraform
-                    // sh "wget -q ${terraformDownloadUrl} -O terraform.zip"
-                    // sh 'unzip terraform.zip'
-                    // sh 'mv terraform /usr/local/bin/'
-
-                    // Verify installation
-                    sh 'terraform --version'
-                }
+                echo 'Hello World'
+                sh 'docker images'
             }
         }
-        // stage('Install Make') {
-        //     steps {
-        //         script {
-        //             sh 'apt-get update'
-        //             sh 'apt-get install -y make'
-        //             // sh 'make'
-        //         }
-        //     }
-        // }
-        stage('Check Node') {
+         stage('Run Docker Image on Jenkins Slave') {
+            agent {
+                // Specify the label of the Jenkins slave where the image is available
+                label  "jenkins-slave-node"
+            }
             steps {
                 script {
-                    nodejs('nodejs-18.14.1') {
-                        sh 'node -v'
-                        sh 'yarn install'
+                    // Run commands inside the Docker container on the Jenkins slave
+                    // def dockerImage = docker.image('custom-image:latest')
+                    def dockerImage = docker.image('customimage-jenkins:latest')
+                    // def dockerImage = docker.image('myjenkins-slave:latest')
+                    dockerImage.inside {
+                        // sh 'make'
+                        sh 'echo "Running commands inside the custom image"'
+                        sh 'terraform version'
+                        sh 'make --version'
+                        // Add more commands as needed
                     }
-                // dir('../') {
-                //     // Run the 'make' command
-                //     sh 'make'
-                // }
                 }
-                echo 'NodeJs and Yarn are installed'
-            }
-        }
-        // stage('Cache Data') {
-        //    steps {
-        //     script {
-        //         def cacheData = readFileIfExists('cached_data.txt') ?: generateAndStoreData()
-        //         // Use cachedData in your build
-        //         echo "Using cached data: ${cachedData}"
-        //     }
-        //    }
-
-        // }
-        stage('Build') {
-            steps {
-                echo 'Building job'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing job'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying job'
             }
         }
     }
 }
-// def generateAndStoreData() {
-//     def data = "Generated data for caching"
-//     writeFile file: 'cached_data.txt', text:data
-// }
-// def readFileIfExists(String filename) {
-//     def file = new File(filename)
-//     return file.exists() ? file.text : null
-
-// }

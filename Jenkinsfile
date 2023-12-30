@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Hello') {
              agent {
-                // Specify the label of the Jenkins slave where the image is available
+                // Specify the label of the Jenkins slave where the image is available.
                 label  "jenkins-slave-node"
             }
             steps {

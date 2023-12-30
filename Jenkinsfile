@@ -12,6 +12,10 @@ pipeline {
     // //     label "docker-slave"
     // // }
     // }
+    environment {
+        // Define the ID of your GitHub credentials in Jenkins
+        GITHUB_CREDENTIALS = 'jenkins-github-pat'
+    }
     stages {
         stage('Hello') {
              agent {

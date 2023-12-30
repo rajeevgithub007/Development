@@ -18,19 +18,19 @@ pipeline {
     }
     stages {
         stage('Hello') {
-             agent {
+            agent {
                 // Specify the label of the Jenkins slave where the image is available.
-                label  "jenkins-slave-node"
+                label  'jenkins-slave-node'
             }
             steps {
                 echo 'Hello World'
                 sh 'docker images'
             }
         }
-         stage('Run Docker Image on Jenkins Slave') {
+        stage('Run Docker Image on Jenkins Slave') {
             agent {
                 // Specify the label of the Jenkins slave where the image is available
-                label  "jenkins-slave-node"
+                label  'jenkins-slave-node'
             }
             steps {
                 script {
@@ -38,12 +38,15 @@ pipeline {
                     // def dockerImage = docker.image('custom-image:latest')
                     def dockerImage = docker.image('customimage-jenkins:latest')
                     // def dockerImage = docker.image('myjenkins-slave:latest')
-                    dockerImage.inside {
-                        // sh 'make'
-                        sh 'echo "Running commands inside the custom image"'
-                        sh 'terraform version'
-                        sh 'make --version'
+                    // Use GitHub credentials with the 'withCredentials' block
+                    withCredentials([usernamePassword(credentialsId: GITHUB_CREDENTIALS, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        dockerImage.inside {
+                            // sh 'make'
+                            sh 'echo "Running commands inside the custom image"'
+                            sh 'terraform version'
+                            sh 'make --version'
                         // Add more commands as needed
+                        }
                     }
                 }
             }

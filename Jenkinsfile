@@ -46,7 +46,8 @@ pipeline {
                             sh 'echo "Running commands inside the custom image"'
                             sh 'terraform version'
                             sh 'make --version'
-                            sh 'make all'
+                            sh 'chmod +x run_terraform.sh'
+                            sh 'run_terraform.sh'
                         // Add more commands as needed
                         }
                     }

@@ -47,7 +47,7 @@ pipeline {
                             sh 'terraform version'
                             sh 'make --version'
                             sh 'chmod +x run_terraform.sh'
-                            sh 'run_terraform.sh'
+                            sh './run_terraform.sh'
                         // Add more commands as needed
                         }
                     }

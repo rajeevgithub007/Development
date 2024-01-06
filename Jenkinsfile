@@ -44,11 +44,15 @@ pipeline {
                         sh 'docker -v'
                         def dockerfilePath = './Dockerfile'
                         def customImage = docker.build('hello-world:latest', "-f ${dockerfilePath} .")
+                        withDockerRegistry(credentialsId: 'DOCKERHUB_CREDENTIALS') {
+                            // Push the Docker image to Docker Hub
+                            customImage.push()
+                        }
                         // Log in to Docker Hub
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
-                    // Push the Docker image to Docker Hub
-                    customImage.push()
-                    }
+                    // docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
+                    // // Push the Docker image to Docker Hub
+                    // customImage.push()
+                    // }
                 // dir('../') {
                 //     // Run the 'make' command
                 //     sh 'make'

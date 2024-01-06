@@ -30,47 +30,47 @@ pipeline {
             }
         }
 
-        // stage('Check Node') {
-        //     steps {
-        //         script {
-        //             nodejs('nodejs-18.14.1') {
-        //                 sh 'node -v'
-        //                 sh 'yarn install'
-        //             }
-        //         // dir('../') {
-        //         //     // Run the 'make' command
-        //         //     sh 'make'
-        //         // }
-        //         }
-        //         echo 'NodeJs and Yarn are installed'
-        //     }
-        // }
-        stage('Run Docker Image on Jenkins Slave') {
-            agent {
-                // Specify the label of the Jenkins slave where the image is available
-                label  'jenkins-slave-node'
-            }
+        stage('Check Node') {
             steps {
                 script {
-                    // Run commands inside the Docker container on the Jenkins slave
-                    // def dockerImage = docker.image('custom-image:latest')
-                    def dockerImage = docker.image('customimage-jenkins:latest')
-                    // def dockerImage = docker.image('myjenkins-slave:latest')
-                    // Use GitHub credentials with the 'withCredentials' block
-                    // withCredentials([usernamePassword(credentialsId: GITHUB_CREDENTIALS, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    withCredentials([string(credentialsId: 'jenkins-github-pat', variable: 'GITHUB_TOKEN')]) {    
-                        dockerImage.inside {
-                            // sh 'make'
-                            sh 'echo "Running commands inside the custom image"'
-                            sh 'terraform version'
-                            sh 'make --version'
-                            sh 'chmod +x run_terraform.sh'
-                            sh './run_terraform.sh'
-                        // Add more commands as needed
-                        }
+                    nodejs('nodejs-18.14.0') {
+                        sh 'node -v'
+                        sh 'yarn install'
                     }
+                // dir('../') {
+                //     // Run the 'make' command
+                //     sh 'make'
+                // }
                 }
+                echo 'NodeJs and Yarn are installed'
             }
-        }
+         }
+        // stage('Run Docker Image on Jenkins Slave') {
+        //     agent {
+        //         // Specify the label of the Jenkins slave where the image is available
+        //         label  'jenkins-slave-node'
+        //     }
+        //     steps {
+        //         script {
+        //             // Run commands inside the Docker container on the Jenkins slave
+        //             // def dockerImage = docker.image('custom-image:latest')
+        //             def dockerImage = docker.image('customimage-jenkins:latest')
+        //             // def dockerImage = docker.image('myjenkins-slave:latest')
+        //             // Use GitHub credentials with the 'withCredentials' block
+        //             // withCredentials([usernamePassword(credentialsId: GITHUB_CREDENTIALS, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+        //             withCredentials([string(credentialsId: 'jenkins-github-pat', variable: 'GITHUB_TOKEN')]) {    
+        //                 dockerImage.inside {
+        //                     // sh 'make'
+        //                     sh 'echo "Running commands inside the custom image"'
+        //                     sh 'terraform version'
+        //                     sh 'make --version'
+        //                     sh 'chmod +x run_terraform.sh'
+        //                     sh './run_terraform.sh'
+        //                 // Add more commands as needed
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
     }
 }

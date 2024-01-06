@@ -8,10 +8,10 @@ init:
 	$(TF) init
 
 plan: init
-	$(TF) plan
+	$(TF) plan -auto-approve
 
 apply: plan
-	$(TF) apply
+	$(TF) apply -auto-approve
 
 # Clean target (optional)
 clean:

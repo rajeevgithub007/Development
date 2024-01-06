@@ -23,6 +23,12 @@ apply() {
     $TF apply -auto-approve
 }
 
+destroy() {
+    destroy
+    echo "Running 'destroy'..."
+    $TF destroy -auto-approve
+}
+
 clean() {
     echo "Running 'clean'..."
     rm -rf .terraform
@@ -32,4 +38,5 @@ clean() {
 init
 plan
 apply
+destroy
 clean

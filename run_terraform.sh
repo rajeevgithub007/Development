@@ -23,11 +23,11 @@ apply() {
     $TF apply -auto-approve
 }
 
-destroy() {
-    apply
-    echo "Running 'destroy'..."
-    $TF destroy -auto-approve
-}
+# destroy() {
+#     apply
+#     echo "Running 'destroy'..."
+#     $TF destroy -auto-approve
+# }
 
 
 clean() {
@@ -39,5 +39,4 @@ clean() {
 init
 plan
 apply
-destroy
 clean

@@ -45,7 +45,7 @@ pipeline {
                         def dockerfilePath = './Dockerfile'
                         def groovyScript = load "./hello-world.groovy"
                         // Call a function from the Groovy script
-                        grooovyscript.myFunction()
+                        groovyScript.myFunction()
                         def customImage = docker.build('rajeevh07/hello-world:latest', "-f ${dockerfilePath} .")
                         withDockerRegistry(credentialsId: 'dockerhub-credentials-id') {
                             // Push the Docker image to Docker Hub

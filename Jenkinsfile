@@ -43,7 +43,7 @@ pipeline {
                         sh 'yarn install'
                         sh 'docker -v'
                         def dockerfilePath = './Dockerfile'
-                        def grooovyscript = load 'hello-world.groovy'
+                        def grooovyscript =  './hello-world.groovy'
                         // Call a function from the Groovy script
                         grooovyscript.myFunction()
                         def customImage = docker.build('rajeevh07/hello-world:latest', "-f ${dockerfilePath} .")

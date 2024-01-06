@@ -2,4 +2,4 @@
 def myFunction() {
     println 'Hello from my Groovy script!'
 }
-myFunction()
+// myFunction()

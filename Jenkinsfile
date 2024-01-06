@@ -43,7 +43,7 @@ pipeline {
                         sh 'yarn install'
                         sh 'docker -v'
                         def dockerfilePath = './Dockerfile'
-                        def customImage = docker.build('hello-world:latest', "-f ${dockerfilePath} .")
+                        def customImage = docker.build('rajeevh07/hello-world:latest', "-f ${dockerfilePath} .")
                         withDockerRegistry(credentialsId: 'dockerhub-credentials-id') {
                             // Push the Docker image to Docker Hub
                             customImage.push()

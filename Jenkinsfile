@@ -32,6 +32,10 @@ pipeline {
         }
 
         stage('Check Node and Build Docker Image') {
+            agent {
+                // Specify the label of the Jenkins slave where the image is available
+                label  'jenkins-slave-node'
+            }
             steps {
                 script {
                     nodejs('nodejs-18.14.0') {

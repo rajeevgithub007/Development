@@ -15,6 +15,8 @@ pipeline {
     environment {
         // Define the ID of your GitHub credentials in Jenkins
         GITHUB_CREDENTIALS = 'jenkins-github-pat'
+        AWS_ACCESS_KEY_ID     = credentials('aws-access-key')
+        // AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
     }
     stages {
         stage('Hello') {

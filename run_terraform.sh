@@ -7,18 +7,19 @@ TF=terraform
 
 # Execute all targets
 init() {
+    init
     echo "Running 'init'..."
     $TF init
 }
 
 plan() {
-    init
+    plan
     echo "Running 'plan'..."
     $TF plan -auto-approve
 }
 
 apply() {
-    plan
+    apply
     echo "Running 'apply'..."
     $TF apply -auto-approve
 }

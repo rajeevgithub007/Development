@@ -45,7 +45,7 @@ pipeline {
                         def dockerfilePath = './Dockerfile'
                         def customImage = docker.build('hello-world:latest', "-f ${dockerfilePath} .")
                         // Log in to Docker Hub
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
+                    docker.withRegistry('https://registry.hub.docker.com', env.credentials('dockerhub-credentials-id')) {
                     // Push the Docker image to Docker Hub
                     customImage.push()
                     }

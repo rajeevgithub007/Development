@@ -39,4 +39,5 @@ clean() {
 init
 plan
 apply
+destroy
 clean

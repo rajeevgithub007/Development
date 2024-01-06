@@ -37,6 +37,7 @@ pipeline {
                     nodejs('nodejs-18.14.0') {
                         sh 'node -v'
                         sh 'yarn install'
+                        sh 'docker -v'
                         def dockerfilePath = './Dockerfile'
                         def customImage = docker.build('hello-world:latest', "-f ${dockerfilePath} .")
                     }

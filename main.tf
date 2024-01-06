@@ -1,9 +1,5 @@
 provider "aws" {
   region = "ap-south-1"
-  aws_access_key_id = "AKIAWJSTP22JFZU5JNIF"
-  aws_secret_access_key = "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"
-
-
   default_tags {
     tags = {
       hashicorp-learn = "module-use"

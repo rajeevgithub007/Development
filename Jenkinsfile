@@ -17,12 +17,12 @@ pipeline {
         GITHUB_CREDENTIALS = 'jenkins-github-pat'
         AWS_ACCESS_KEY_ID     = credentials('aws-access-key')
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-id')
-        // AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
+    // AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
     }
     stages {
         stage('Hello') {
             agent {
-                // Specify the label of the Jenkins slave where the image is available.
+                // Specify the label of Jenkins slave where the image is available.
                 label  'jenkins-slave-node'
             }
             steps {
@@ -43,7 +43,7 @@ pipeline {
                         sh 'yarn install'
                         sh 'docker -v'
                         def dockerfilePath = './Dockerfile'
-                        def groovyScript = load "./hello-world.groovy"
+                        def groovyScript = load './hello-world.groovy'
                         // Call a function from the Groovy script
                         groovyScript.myFunction()
                         def customImage = docker.build('rajeevh07/hello-world:latest', "-f ${dockerfilePath} .")
@@ -51,21 +51,21 @@ pipeline {
                             // Push the Docker image to Docker Hub
                             customImage.push()
                         }
-                        // Log in to Docker Hubfff
+                    // Log in to Docker Hubfff
                     // docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
                     // // Push the Docker image to Docker Hub
                     // customImage.push()
                     // }
-                // dir('../') {
-                //     // Run the 'make' command
-                //     sh 'make'
-                // }
+                    // dir('../') {
+                    //     // Run the 'make' command
+                    //     sh 'make'
+                    // }
+                    }
+                    echo 'NodeJs and Yarn are installed'
                 }
-                echo 'NodeJs and Yarn are installed'
             }
-          }
         }
-        
+
         stage('Run Docker Image on Jenkins Slave') {
             agent {
                 // Specify the label of the Jenkins slave where the image is available
@@ -79,7 +79,7 @@ pipeline {
                     // def dockerImage = docker.image('myjenkins-slave:latest')
                     // Use GitHub credentials with the 'withCredentials' block
                     // withCredentials([usernamePassword(credentialsId: GITHUB_CREDENTIALS, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    withCredentials([string(credentialsId: 'jenkins-github-pat', variable: 'GITHUB_TOKEN')]) {    
+                    withCredentials([string(credentialsId: 'jenkins-github-pat', variable: 'GITHUB_TOKEN')]) {
                         dockerImage.inside {
                             // sh 'make'
                             sh 'echo "Running commands inside the custom image"'
@@ -90,8 +90,8 @@ pipeline {
                         // Add more commands as needed
                         }
                     }
+                    }
                 }
             }
         }
     }
-}

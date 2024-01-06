@@ -51,7 +51,7 @@ pipeline {
                             // Push the Docker image to Docker Hub
                             customImage.push()
                         }
-                        // Log in to Docker Hub
+                        // Log in to Docker Hubfff
                     // docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
                     // // Push the Docker image to Docker Hub
                     // customImage.push()

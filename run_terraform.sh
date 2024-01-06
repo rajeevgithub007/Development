@@ -7,28 +7,28 @@ TF=terraform
 
 # Execute all targets
 init() {
-    init
     echo "Running 'init'..."
     $TF init
 }
 
 plan() {
-    plan
+    init
     echo "Running 'plan'..."
     $TF plan -auto-approve
 }
 
 apply() {
-    apply
+    plan
     echo "Running 'apply'..."
     $TF apply -auto-approve
 }
 
 destroy() {
-    destroy
+    apply
     echo "Running 'destroy'..."
     $TF destroy -auto-approve
 }
+
 
 clean() {
     echo "Running 'clean'..."
@@ -39,5 +39,4 @@ clean() {
 init
 plan
 apply
-destroy
 clean

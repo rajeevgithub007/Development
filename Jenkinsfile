@@ -56,7 +56,8 @@ pipeline {
                 }
                 echo 'NodeJs and Yarn are installed'
             }
-         }
+          }
+        }
         //  stage('Build Docker Image') {
         //     steps {
         //         script {

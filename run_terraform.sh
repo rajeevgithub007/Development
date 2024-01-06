@@ -14,13 +14,13 @@ init() {
 plan() {
     init
     echo "Running 'plan'..."
-    $TF plan
+    $TF plan -auto-approve
 }
 
 apply() {
     plan
     echo "Running 'apply'..."
-    $TF apply
+    $TF apply -auto-approve
 }
 
 clean() {
